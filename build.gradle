@@ -1,0 +1,33 @@
+
+buildscript {
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        mavenCentral()
+        google()
+        maven { url 'https://jitpack.io' }
+        maven { url uri("/Users/c30/nee/maven_local_yqjc") }
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.2.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:1.5.20"
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        mavenCentral()
+        google()
+        maven { url 'https://jitpack.io' }
+        maven { url uri("/Users/c30/nee/maven_local_yqjc") }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

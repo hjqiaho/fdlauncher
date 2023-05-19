@@ -1,0 +1,59 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk 30
+    signingConfigs {//签名配置
+        release {//发布版签名配置
+            storeFile file('../fdnotice.jks')//密钥文件路径
+            storePassword 'datedu'//密钥文件密码
+            keyAlias 'fdnotice'//key别名
+            keyPassword 'datedu'//key密码
+        }
+    }
+    defaultConfig {
+        applicationId "com.fundot.login"
+        minSdk 21
+        targetSdk 30
+        versionCode Integer.parseInt(appVersionCode)
+        versionName "NOTICE_${versionCode}"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def fileName = "${versionName}_${variant.buildType.name}.apk"
+            outputFileName = fileName
+        }
+    }
+}
+
+dependencies {
+
+//    implementation 'com.fundot.local:fundotlauncher:1.0.27'
+    implementation project(":fundotlauncher")
+    api 'com.google.code.gson:gson:2.8.7'
+
+}
