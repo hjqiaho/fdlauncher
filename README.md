@@ -49,7 +49,8 @@ FundotLauncherHelper.getHiddenAppList(this)
 //登录 登录成功后再跳转
 val loginInfo = FdUserInfoModel()
 loginInfo.userid = "123"
-loginInfo.username = "李"
+loginInfo.username = "li"
+loginInfo.realname = "李"
 loginInfo.channel = ""
 loginInfo.timeStamp = System.currentTimeMillis()
 loginInfo.sign = getCunwSign(loginInfo.userid,loginInfo.channel,loginInfo.timeStamp)
