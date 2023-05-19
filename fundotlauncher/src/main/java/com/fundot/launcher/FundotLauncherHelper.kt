@@ -67,9 +67,9 @@ class FundotLauncherHelper {
                 intent.putExtra("caller", caller)
                 context.sendBroadcast(intent)
                 this.loginCallback = loginCallback;
-                Log.i(TAG, "logout")
+                Log.i(TAG, "login")
             }catch (e:Throwable){
-                Log.i(TAG, "logout Throwable ="+e.localizedMessage)
+                Log.i(TAG, "login Throwable ="+e.localizedMessage)
                 e.printStackTrace()
             }
         }
@@ -156,7 +156,7 @@ class FundotLauncherHelper {
                 e.printStackTrace()
             }
         }
-        //打开设置页面
+        //保持应用在前台
         @JvmStatic
         fun sendKeepAppBoardCast(context: Context,packagename: String) {
             try{
@@ -167,7 +167,8 @@ class FundotLauncherHelper {
                 e.printStackTrace()
             }
         }
-        fun sendRemoveKeepAppBoardCast(context: Context,packagename: String) {
+        //取消保持应用在前台
+        fun sendRemoveKeepAppBoardCast(context: Context) {
             try{
                 val intent = Intent("com.fundot.p4bu.nav-show")
                 context.sendBroadcast(intent)

@@ -26,7 +26,7 @@ class LoginActivity :Activity(){
             loginInfo.realname = "李"
             loginInfo.channel = ""
             loginInfo.timeStamp = System.currentTimeMillis()
-            loginInfo.sign = getCunwSign(loginInfo.userid,loginInfo.channel,loginInfo.timeStamp)
+            loginInfo.sign = getCunwSign(loginInfo.channel,loginInfo.userid,loginInfo.timeStamp)
             FundotLauncherHelper.login(this,GsonUtils.jsonCreate(loginInfo),object : FundotLauncherHelper.FundotLoginCallback{
                 override fun loginSuccess(message: String) {
                     Toast.makeText(this@LoginActivity,"登录成功！",Toast.LENGTH_LONG).show()
@@ -44,7 +44,7 @@ class LoginActivity :Activity(){
 
 
     fun getCunwSign(channel: String = "", userid: String, timeStamp: Long): String {
-        val plain = String.format("20230519_cunw_%s_%s_%s_%s", "com.cunw", channel, userid, timeStamp)
+        val plain = String.format("xyw_fbf28fa_%s_%s_%s_%s", "com.cunw", channel, userid, timeStamp)
         return md5(plain)
     }
     fun md5(md5: String): String {
