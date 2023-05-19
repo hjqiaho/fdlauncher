@@ -29,7 +29,7 @@ class LoginActivity :Activity(){
             loginInfo.sign = getCunwSign(loginInfo.userid,loginInfo.channel,loginInfo.timeStamp)
             FundotLauncherHelper.login(this,GsonUtils.jsonCreate(loginInfo),object : FundotLauncherHelper.FundotLoginCallback{
                 override fun loginSuccess(message: String) {
-                    Toast.makeText(this@LoginActivity,"登录成功",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@LoginActivity,"登录成功！",Toast.LENGTH_LONG).show()
                     finish()
                 }
 

@@ -158,11 +158,19 @@ class FundotLauncherHelper {
         }
         //打开设置页面
         @JvmStatic
-        fun sendOpneSettingBoardCast(context: Context) {
+        fun sendKeepAppBoardCast(context: Context,packagename: String) {
             try{
-                val intent = Intent("com.fundot.p4bu.setting")
+                val intent = Intent("com.fundot.p4bu.nav-hide")
+                intent.putExtra("packagename",packagename)
                 context.sendBroadcast(intent)
-                Log.i(TAG, "sendOpneSettingBoardCast")
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        fun sendRemoveKeepAppBoardCast(context: Context,packagename: String) {
+            try{
+                val intent = Intent("com.fundot.p4bu.nav-show")
+                context.sendBroadcast(intent)
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -197,12 +205,14 @@ class FundotLauncherHelper {
                     }else{
                         loginCallback?.loginFail(-1,message ?: "登录失败，请重试。")
                     }
+                    loginCallback = null
                 }else if ("com.fundot.p4bu.logout" == action) {
                     val message = intent.getStringExtra("message")
                     fundotLoginStateCallbacks?.forEach {
                         it.logout(-1,message ?: "你已退出登录。")
                     }
                     logoutCallback?.logoutSuccess(message ?: "")
+                    logoutCallback = null
                 }else if ("com.fundot.p4bu.logout-result"==action){
                     val result = intent.getBooleanExtra("result", false)
                     val message = intent.getStringExtra("message")
@@ -211,6 +221,7 @@ class FundotLauncherHelper {
                     }else{
                         logoutCallback?.logoutFail(-1,message ?: "退出登录失败。")
                     }
+                    logoutCallback = null
                 }
             }
         }
