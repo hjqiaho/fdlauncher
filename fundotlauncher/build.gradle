@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'maven'
 }
 
 android {
@@ -39,18 +38,3 @@ dependencies {
 
 }
 
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            // 生成maven依赖的组名
-            pom.groupId = 'com.fundot.local'
-            // 生成maven依赖的模块名称
-            pom.artifactId = 'fundotlauncher'
-            // 生成maven依赖的版本号
-            pom.version = '1.0.27'
-            // 本地maven仓库的路径
-            repository(url: uri("/Users/c30/nee/maven_local_yqjc"))
-        }
-    }
-}

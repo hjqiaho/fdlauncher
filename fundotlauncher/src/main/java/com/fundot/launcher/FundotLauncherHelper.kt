@@ -173,6 +173,7 @@ class FundotLauncherHelper {
                 val filter = IntentFilter()
                 filter.addAction("com.fundot.p4bu.login-result")
                 filter.addAction("com.fundot.p4bu.logout")
+                filter.addAction("com.fundot.p4bu.logout-result")
                 context.registerReceiver(receiver, filter)
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
@@ -201,7 +202,15 @@ class FundotLauncherHelper {
                     fundotLoginStateCallbacks?.forEach {
                         it.logout(-1,message ?: "你已退出登录。")
                     }
-
+                    logoutCallback?.logoutSuccess(message ?: "")
+                }else if ("com.fundot.p4bu.logout-result"==action){
+                    val result = intent.getBooleanExtra("result", false)
+                    val message = intent.getStringExtra("message")
+                    if (result){
+                        logoutCallback?.logoutSuccess(message ?: "")
+                    }else{
+                        logoutCallback?.logoutFail(-1,message ?: "退出登录失败。")
+                    }
                 }
             }
         }
