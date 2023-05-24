@@ -17,6 +17,7 @@ class FundotLauncherHelper {
         private var caller = ""
 
         //注册并监听数据变化
+        @JvmStatic
         fun register(application: Application,caller:String) {
             registerBroadCast(application)
 
@@ -26,6 +27,7 @@ class FundotLauncherHelper {
         }
 
         //解除注册
+        @JvmStatic
         fun unregister(context:Context) {
            try {
                unregisterBroadCast(context)
@@ -39,6 +41,7 @@ class FundotLauncherHelper {
         /***
          * 设置需要屏蔽的应用列表变化监听
          * **/
+        @JvmStatic
         fun setAppHiddenListener(context: Context, callback: FundotAppHiddenCallback){
             mControlHideAppUtil.appHiddenCallback = callback
             mControlHideAppUtil.loadData(context)
@@ -60,6 +63,7 @@ class FundotLauncherHelper {
          *  在此回调中不要调用管控的登录或退出登录功能
          *
          * */
+        @JvmStatic
         fun login(context: Context,info: String,loginCallback: FundotLoginCallback?){
             try{
                 val intent = Intent("com.fundot.launcher.login")
@@ -94,9 +98,11 @@ class FundotLauncherHelper {
                 e.printStackTrace()
             }
         }
+        @JvmStatic
         fun addFundotLoginStateCallback(loginCallback: FundotLoginStateCallback?){
             loginCallback?.let { this.fundotLoginStateCallbacks?.add(it) }
         }
+        @JvmStatic
         fun removeFundotLoginStateCallback(loginCallback: FundotLoginStateCallback?){
             loginCallback?.let { this.fundotLoginStateCallbacks?.remove(it) }
         }
@@ -106,6 +112,7 @@ class FundotLauncherHelper {
          *  返回值为需要隐藏应用，系统所有应用除去返回值其他的为需要显示应用
          *
          * */
+        @JvmStatic
         fun getHiddenAppList(context: Context):List<String>{
             return mControlHideAppUtil.loadData(context)
         }
@@ -168,6 +175,7 @@ class FundotLauncherHelper {
             }
         }
         //取消保持应用在前台
+        @JvmStatic
         fun sendRemoveKeepAppBoardCast(context: Context) {
             try{
                 val intent = Intent("com.fundot.p4bu.nav-show")
@@ -177,6 +185,7 @@ class FundotLauncherHelper {
             }
         }
 
+        @JvmStatic
         private fun registerBroadCast(context:Context) {
             try {
                 val filter = IntentFilter()
@@ -188,6 +197,7 @@ class FundotLauncherHelper {
                 e.printStackTrace()
             }
         }
+        @JvmStatic
         private fun unregisterBroadCast(context:Context) {
             try {
                 context.unregisterReceiver(receiver)
