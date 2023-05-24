@@ -35,13 +35,6 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
     applicationVariants.all { variant ->
         variant.outputs.all {
             def fileName = "${versionName}_${variant.buildType.name}.apk"
@@ -59,5 +52,6 @@ dependencies {
 
     implementation project(":fundotlauncher")
     api 'com.google.code.gson:gson:2.8.7'
+    implementation 'androidx.annotation:annotation:1.0.0'
 
 }
