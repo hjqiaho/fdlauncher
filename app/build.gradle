@@ -53,6 +53,7 @@ android {
 dependencies {
 
 //    implementation 'com.fundot.local:fundotlauncher:1.0.27'
+//    implementation 'com.github.hjqiaho:fdlauncher:2.1'
     implementation project(":fundotlauncher")
     api 'com.google.code.gson:gson:2.8.7'
 
