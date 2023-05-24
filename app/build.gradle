@@ -1,7 +1,7 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 
 android {
     compileSdk 30
@@ -54,6 +54,9 @@ dependencies {
 
 //    implementation 'com.fundot.local:fundotlauncher:1.0.27'
 //    implementation 'com.github.hjqiaho:fdlauncher:2.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
     implementation project(":fundotlauncher")
     api 'com.google.code.gson:gson:2.8.7'
 
