@@ -8,6 +8,8 @@ import android.content.IntentFilter
 import android.util.Base64
 import android.util.Log
 import com.fundot.launcher.utils.ControlHideAppUtil
+import com.fundot.launcher.utils.FdAppInfo
+import com.fundot.launcher.utils.FdApplicationUtils
 
 class FundotLauncherHelper {
 
@@ -19,8 +21,8 @@ class FundotLauncherHelper {
         //注册并监听数据变化
         @JvmStatic
         fun register(application: Application,caller:String) {
+            FdApplicationUtils.instance.init(application)
             registerBroadCast(application)
-
             mControlHideAppUtil.observe(application)
             this.caller = caller
             Log.i(TAG, "register")
@@ -42,8 +44,8 @@ class FundotLauncherHelper {
          * 设置需要屏蔽的应用列表变化监听
          * **/
         @JvmStatic
-        fun setAppHiddenListener(context: Context, callback: FundotAppHiddenCallback){
-            mControlHideAppUtil.appHiddenCallback = callback
+        fun setAppReloadListener(context: Context, callback: FundotAppReloadCallback){
+            mControlHideAppUtil.appReloadCallback = callback
             mControlHideAppUtil.loadData(context)
         }
 
@@ -107,13 +109,11 @@ class FundotLauncherHelper {
             loginCallback?.let { this.fundotLoginStateCallbacks?.remove(it) }
         }
         /**
-         *  获取 隐藏应用列表更新
-         *
-         *  返回值为需要隐藏应用，系统所有应用除去返回值其他的为需要显示应用
+         *  获取 需要显示的应用列表
          *
          * */
         @JvmStatic
-        fun getHiddenAppList(context: Context):List<String>{
+        fun getShowAppList(context: Context):List<FdAppInfo>{
             return mControlHideAppUtil.loadData(context)
         }
         //打开管控设置页面  com.fundot.p4bu.admin
@@ -306,18 +306,30 @@ class FundotLauncherHelper {
         fun logout(code:Int,message:String)
 
     }
-    interface FundotAppHiddenCallback {
+    interface FundotAppReloadCallback {
         /**
          *  隐藏应用列表更新
          *
          *  登录账号 或 策略更新后 等
          *
          *  需要做的事
-         *  1、获取系统所有应用 hideApps 为需要隐藏应用 其他为需要显示应用
+         *  1、隐藏应用
          *
          *
          * */
-        fun needReloadApp(hideApps: List<String>)
+        fun needHidenApp(hidenApps: List<String>)
+
+        /**
+         *  显示应用列表
+         *
+         *  登录账号 或 策略更新后 等
+         *
+         *  需要做的事
+         *  1、显示应用列表
+         *
+         *
+         * */
+        fun needShowApp(allowApps: List<String>,allowFdApps: List<FdAppInfo>)
 
     }
 }

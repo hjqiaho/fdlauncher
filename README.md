@@ -2,7 +2,7 @@
 
 # 引入
 ```
-implementation 'com.github.hjqiaho:fdlauncher:2.5'
+implementation 'com.github.hjqiaho:fdlauncher:2.6'
 ```
 
 
@@ -22,13 +22,15 @@ FundotLauncherHelper.register(this,"com.cunw")
 ```
 ***监听隐藏应用事件***
 ```
-//监听应用禁用启用应用后刷新桌面图标
-   FundotLauncherHelper.setAppHiddenListener(this,object:FundotLauncherHelper.FundotAppHiddenCallback{
-       //这里需要显示或者隐藏图标的时候调用 此时图标需要自己处理 查询所有图标减去需要隐藏的图标
-       override fun needReloadApp(hideApps: List<String>) {
-           Log.i("needReloadApp", "hideApps = ${hideApps.toString()}")
-       }
-   })
+     //监听应用禁用启用应用后刷新桌面图标
+        FundotLauncherHelper.setAppReloadListener(this,object:FundotLauncherHelper.FundotAppReloadCallback{
+            //这里需要显示或者隐藏图标
+            override fun needHidenApp(hidenApps: List<String>) {
+            }
+
+            override fun needShowApp(allowApps: List<String>, allowFdApps: List<FdAppInfo>) {
+            }
+        })
 ```
 ***监听 管控退出登录事件***
 ```
@@ -42,8 +44,8 @@ FundotLauncherHelper.addFundotLoginStateCallback(object :FundotLauncherHelper.Fu
 ```
 ***一些操作***
 ```
-//获取管控禁用应用列表
-FundotLauncherHelper.getHiddenAppList(this)
+//获取需要显示的应用列表
+FundotLauncherHelper.getShowAppList(this)
 
 
 //登录 登录成功后再跳转

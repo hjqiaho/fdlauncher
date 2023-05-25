@@ -1,6 +1,8 @@
 package com.fundot.launcher.utils
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
@@ -9,15 +11,12 @@ import android.util.Log
 import com.fundot.launcher.FundotLauncherHelper
 
 
-/**
- * @author jqorz
- * @since 2021/8/10
- */
 class ControlHideAppUtil {
 
     private var observer: MyDataObserver? = null
+    private var mPackageManager: PackageManager? = null
     var isObserved = false
-    var appHiddenCallback: FundotLauncherHelper.FundotAppHiddenCallback? = null
+    var appReloadCallback: FundotLauncherHelper.FundotAppReloadCallback? = null
 
     inner class MyDataObserver(val context: Context, handler: Handler) : ContentObserver(handler) {
         override fun onChange(selfChange: Boolean) {
@@ -32,6 +31,7 @@ class ControlHideAppUtil {
      * context 要传Launcher
      */
     fun observe(context: Context) {
+        mPackageManager = context.packageManager
         observer = MyDataObserver(context, Handler(Looper.getMainLooper())).also {
             isObserved = try {
                 context.contentResolver.registerContentObserver(URI_PACKAGE_STATUS, false, it)
@@ -50,7 +50,7 @@ class ControlHideAppUtil {
     }
 
     //读取数据
-    fun loadData(context: Context):List<String> {
+    fun loadData(context: Context):List<FdAppInfo> {
         try {
             val cr = context.contentResolver
             val cursor = cr.query(URI_PACKAGE_STATUS, arrayOf(ID, PACKAGE_NAME, ALLOW_SHOW), null, null, null)
@@ -61,16 +61,12 @@ class ControlHideAppUtil {
                 Log.d(TAG, "count=$count")
                 if (count > 0) {
                     do {
-                        val idIndex = cursor.getColumnIndex(ID);
-                        val id = cursor.getLong(idIndex)
-
                         val packageNameIndex = cursor.getColumnIndex(PACKAGE_NAME)
                         val packageName = cursor.getString(packageNameIndex)
 
                         val allowShowIndex = cursor.getColumnIndex(ALLOW_SHOW)
                         val allowShow = cursor.getInt(allowShowIndex)
-                        Log.d(TAG, "id=" + id + ",packageName=" + packageName + ",allowShow=" + allowShow)
-                        if (allowShow == 0 && !"com.fundot.p4bu".equals(packageName)) {
+                        if (allowShow == 0) {
                             hideList.add(packageName)
                         }
                     } while (cursor.moveToNext())
@@ -80,9 +76,11 @@ class ControlHideAppUtil {
                 Log.w(TAG, "cursor is null.")
             }
 
-            appHiddenCallback?.needReloadApp(hideList)
-            return hideList
-
+            val showAppList:List<String> = FdApplicationUtils.instance.allPackageNameList - hideList.toSet()
+            val showFdAppList = showAppList.mapNotNull { FdApplicationUtils.instance.getAppInfoByPackageName(it) }
+            appReloadCallback?.needHidenApp(hideList)
+            appReloadCallback?.needShowApp(showAppList,showFdAppList)
+            return showFdAppList
         } catch (_: Exception) {
         }
         return arrayListOf();
