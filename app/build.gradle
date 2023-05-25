@@ -14,11 +14,11 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.fundot.login"
+        applicationId "com.fundot.launcher"
         minSdk 21
         targetSdk 30
         versionCode Integer.parseInt(appVersionCode)
-        versionName "NOTICE_${versionCode}"
+        versionName "FDLauncher_${versionCode}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
