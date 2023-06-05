@@ -51,7 +51,7 @@ class FundotLauncherHelper {
 
         private var loginCallback: FundotLoginCallback? = null
         private var logoutCallback: FundotLogoutCallback? = null
-        private var fundotLoginStateCallbacks: MutableList<FundotLoginStateCallback>? = null
+        private var fundotLoginStateCallbacks: MutableList<FundotLoginStateCallback> = arrayListOf()
 
         /**
          *  登录
@@ -102,11 +102,11 @@ class FundotLauncherHelper {
         }
         @JvmStatic
         fun addFundotLoginStateCallback(loginCallback: FundotLoginStateCallback?){
-            loginCallback?.let { this.fundotLoginStateCallbacks?.add(it) }
+            loginCallback?.let { this.fundotLoginStateCallbacks.add(it) }
         }
         @JvmStatic
         fun removeFundotLoginStateCallback(loginCallback: FundotLoginStateCallback?){
-            loginCallback?.let { this.fundotLoginStateCallbacks?.remove(it) }
+            loginCallback?.let { this.fundotLoginStateCallbacks.remove(it) }
         }
         /**
          *  获取 需要显示的应用列表
