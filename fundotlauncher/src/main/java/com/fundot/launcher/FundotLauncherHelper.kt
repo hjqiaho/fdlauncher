@@ -52,6 +52,7 @@ class FundotLauncherHelper {
         private var loginCallback: FundotLoginCallback? = null
         private var logoutCallback: FundotLogoutCallback? = null
         private var fundotLoginStateCallbacks: MutableList<FundotLoginStateCallback> = arrayListOf()
+        private var fundotTopAppChangeCallbacks: MutableList<FundotTopAppChangeCallback> = arrayListOf()
 
         /**
          *  登录
@@ -107,6 +108,14 @@ class FundotLauncherHelper {
         @JvmStatic
         fun removeFundotLoginStateCallback(loginCallback: FundotLoginStateCallback?){
             loginCallback?.let { this.fundotLoginStateCallbacks.remove(it) }
+        }
+        @JvmStatic
+        fun addFundotTopAppChangeCallback(callback: FundotTopAppChangeCallback?){
+            callback?.let { this.fundotTopAppChangeCallbacks.add(it) }
+        }
+        @JvmStatic
+        fun removeFundotTopAppChangeCallback(callback: FundotTopAppChangeCallback?){
+            callback?.let { this.fundotTopAppChangeCallbacks.remove(it) }
         }
         /**
          *  获取 需要显示的应用列表
@@ -184,7 +193,65 @@ class FundotLauncherHelper {
                 e.printStackTrace()
             }
         }
-
+        //增加安装白名单应用
+        @JvmStatic
+        fun addInstallAppWhite(context: Context,packageName: String,channel:String,userid:String,timeStamp:String,sign:String) {
+            try{
+                val intent = Intent("com.fundot.launcher.install_whitelist")
+                intent.putExtra("addPackageName",packageName)
+                intent.putExtra("channel",channel)
+                intent.putExtra("userid",userid)
+                intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("sign",sign)
+                context.sendBroadcast(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        //删除安装白名单应用
+        @JvmStatic
+        fun removeInstallAppWhite(context: Context,packageName: String,channel:String,userid:String,timeStamp:String,sign:String) {
+            try{
+                val intent = Intent("com.fundot.launcher.install_whitelist")
+                intent.putExtra("removePackageName",packageName)
+                intent.putExtra("channel",channel)
+                intent.putExtra("userid",userid)
+                intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("sign",sign)
+                context.sendBroadcast(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        //设置安装白名单应用 重置列表为传入数据
+        @JvmStatic
+        fun setInstallAppWhiteList(context: Context,packageNames: ArrayList<String>,channel:String,userid:String,timeStamp:String,sign:String) {
+            try{
+                val intent = Intent("com.fundot.launcher.install_whitelist")
+                intent.putStringArrayListExtra("packageNames",packageNames)
+                intent.putExtra("channel",channel)
+                intent.putExtra("userid",userid)
+                intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("sign",sign)
+                context.sendBroadcast(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        //恢复出厂
+        @JvmStatic
+        fun setInstallAppWhiteList(context: Context,channel:String,userid:String,timeStamp:String,sign:String) {
+            try{
+                val intent = Intent("com.fundot.launcher.factoryReset")
+                intent.putExtra("channel",channel)
+                intent.putExtra("userid",userid)
+                intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("sign",sign)
+                context.sendBroadcast(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
         @JvmStatic
         private fun registerBroadCast(context:Context) {
             try {
@@ -192,6 +259,7 @@ class FundotLauncherHelper {
                 filter.addAction("com.fundot.p4bu.login-result")
                 filter.addAction("com.fundot.p4bu.logout")
                 filter.addAction("com.fundot.p4bu.logout-result")
+                filter.addAction("com.fundot.p4bu.packagename_change")
                 context.registerReceiver(receiver, filter)
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
@@ -219,7 +287,7 @@ class FundotLauncherHelper {
                     loginCallback = null
                 }else if ("com.fundot.p4bu.logout" == action) {
                     val message = intent.getStringExtra("message")
-                    fundotLoginStateCallbacks?.forEach {
+                    fundotLoginStateCallbacks.forEach {
                         it.logout(-1,message ?: "你已退出登录。")
                     }
                     logoutCallback?.logoutSuccess(message ?: "")
@@ -233,6 +301,13 @@ class FundotLauncherHelper {
                         logoutCallback?.logoutFail(-1,message ?: "退出登录失败。")
                     }
                     logoutCallback = null
+                }else if ("com.fundot.p4bu.packagename_change"==action){
+                    val PackageName = intent.getStringExtra("PackageName") ?: ""
+                    val ActivityName = intent.getStringExtra("ActivityName") ?: ""
+                    val StartTime = intent.getLongExtra("StartTime",0L)
+                    fundotTopAppChangeCallbacks.forEach {
+                        it.topApp(PackageName,ActivityName,StartTime)
+                    }
                 }
             }
         }
@@ -304,6 +379,20 @@ class FundotLauncherHelper {
          *
          */
         fun logout(code:Int,message:String)
+
+    }
+    interface FundotTopAppChangeCallback {
+        /**
+         * 应用切换到前台回调
+         *
+         * 在桌面任何时刻可能会收到
+         *
+         *
+         *  当前台应用变化之后 调用更新
+         *  锁屏的时候 会穿空值
+         *
+         */
+        fun topApp(packageName:String,activityName:String,startTime:Long)
 
     }
     interface FundotAppReloadCallback {

@@ -16,12 +16,21 @@ class MainActivity :Activity(){
 
         }
     }
+
+    private var topAppChangeCallback: FundotLauncherHelper.FundotTopAppChangeCallback =
+        object : FundotLauncherHelper.FundotTopAppChangeCallback{
+            override fun topApp(packageName: String, activityName: String, startTime: Long) {
+
+            }
+
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //监听 管控退出登录广播
         FundotLauncherHelper.addFundotLoginStateCallback(loginCallback)
+        FundotLauncherHelper.addFundotTopAppChangeCallback(topAppChangeCallback)
 
 
         findViewById<Button>(R.id.btn_login).text = "主页 去登录"
@@ -34,6 +43,7 @@ class MainActivity :Activity(){
     override fun onDestroy() {
         super.onDestroy()
         FundotLauncherHelper.removeFundotLoginStateCallback(loginCallback)
+        FundotLauncherHelper.removeFundotTopAppChangeCallback(topAppChangeCallback)
     }
 
 }
