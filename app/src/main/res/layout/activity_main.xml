@@ -11,4 +11,20 @@
         android:layout_height="100dp"
         android:layout_width="100dp"
         android:text="去登录"/>
+
+
+    <Button
+        android:id="@+id/btn_hidden_nav"
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:layout_marginTop="120dp"
+        android:text="隐藏导航"/>
+
+
+    <Button
+        android:id="@+id/btn_show_nav"
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:layout_marginTop="240dp"
+        android:text="显示导航"/>
 </FrameLayout>

@@ -54,4 +54,9 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.7'
     implementation 'androidx.annotation:annotation:1.0.0'
 
+    //状态栏
+    api 'com.gyf.immersionbar:immersionbar:3.0.0'
+    // 状态栏 kotlin扩展（可选）
+    api 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 }
