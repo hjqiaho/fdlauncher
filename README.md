@@ -2,7 +2,7 @@
 
 # 引入
 ```
-implementation 'com.github.hjqiaho:fdlauncher:2.7'
+implementation 'com.github.hjqiaho:fdlauncher:2.8'
 ```
 
 
@@ -35,12 +35,28 @@ FundotLauncherHelper.register(this,"com.cunw")
 ***监听 管控退出登录事件***
 ```
 //监听 管控退出登录广播
-FundotLauncherHelper.addFundotLoginStateCallback(object :FundotLauncherHelper.FundotLoginStateCallback{
-    override fun logout(code: Int, message: String) {
-        //需要退出到登录页面
+  private var loginCallback: FundotLauncherHelper.FundotLoginStateCallback =
+        object : FundotLauncherHelper.FundotLoginStateCallback{
+        override fun logout(code: Int, message: String) {
+            //需要退出到登录页面
 
+        }
     }
-})
+FundotLauncherHelper.addFundotLoginStateCallback(loginCallback)
+
+```
+***监听 前台应用切换事件***
+
+```
+//监听前台应用切换
+private var topAppChangeCallback: FundotLauncherHelper.FundotTopAppChangeCallback =
+        object : FundotLauncherHelper.FundotTopAppChangeCallback{
+            override fun topApp(packageName: String, activityName: String, startTime: Long) {
+
+            }
+
+        }
+FundotLauncherHelper.addFundotTopAppChangeCallback(topAppChangeCallback)
 ```
 ***一些操作***
 ```
@@ -83,6 +99,18 @@ FundotLauncherHelper.sendCheckUpdateBoardCast(this)
 
 //打开应用商店
 FundotLauncherHelper.sendOpenAppStoreBoardCast(this)
+
+//添加安装白名单应用
+FundotLauncherHelper.addInstallAppWhite(this,packageName,channel,userid,timeStamp,sign)
+//删除安装白名单应用
+FundotLauncherHelper.removeInstallAppWhite(this,packageName,channel,userid,timeStamp,sign)
+//设置安装白名单应用
+FundotLauncherHelper.setInstallAppWhiteList(this,packageNames,channel,userid,timeStamp,sign)
+
+//恢复出厂
+FundotLauncherHelper.factoryReset(this,channel,userid,timeStamp,sign)
+
+      
 
 /**
  * TODO

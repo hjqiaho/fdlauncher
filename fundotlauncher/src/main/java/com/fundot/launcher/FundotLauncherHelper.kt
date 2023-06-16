@@ -193,7 +193,7 @@ class FundotLauncherHelper {
                 e.printStackTrace()
             }
         }
-        //增加安装白名单应用
+        //添加安装白名单应用
         @JvmStatic
         fun addInstallAppWhite(context: Context,packageName: String,channel:String,userid:String,timeStamp:String,sign:String) {
             try{
@@ -240,7 +240,7 @@ class FundotLauncherHelper {
         }
         //恢复出厂
         @JvmStatic
-        fun setInstallAppWhiteList(context: Context,channel:String,userid:String,timeStamp:String,sign:String) {
+        fun factoryReset(context: Context,channel:String,userid:String,timeStamp:String,sign:String) {
             try{
                 val intent = Intent("com.fundot.launcher.factoryReset")
                 intent.putExtra("channel",channel)
