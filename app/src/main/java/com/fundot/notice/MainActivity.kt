@@ -3,6 +3,7 @@ package com.fundot.notice
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -30,8 +31,8 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ImmersionBar.with(this)
-            .hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).init()
+//        ImmersionBar.with(this)
+//            .hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).init()
 //        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//A
         //监听 管控退出登录广播
         FundotLauncherHelper.addFundotLoginStateCallback(loginCallback)
@@ -44,9 +45,11 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
         }
         findViewById<Button>(R.id.btn_hidden_nav)?.setOnClickListener {
+            window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
           FundotLauncherHelper.sendKeepAppBoardCast(this,"")
         }
         findViewById<Button>(R.id.btn_show_nav)?.setOnClickListener {
+            window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
             FundotLauncherHelper.sendRemoveKeepAppBoardCast(this)
         }
     }
