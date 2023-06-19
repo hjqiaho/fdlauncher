@@ -195,7 +195,7 @@ class FundotLauncherHelper {
         }
         //添加安装白名单应用
         @JvmStatic
-        fun addInstallAppWhite(context: Context,packageName: String,channel:String,userid:String,timeStamp:String,sign:String) {
+        fun addInstallAppWhite(context: Context,packageName: String,channel:String,userid:String,timeStamp:Long,sign:String) {
             try{
                 val intent = Intent("com.fundot.launcher.install_whitelist")
                 intent.putExtra("addPackageName",packageName)
@@ -210,7 +210,7 @@ class FundotLauncherHelper {
         }
         //删除安装白名单应用
         @JvmStatic
-        fun removeInstallAppWhite(context: Context,packageName: String,channel:String,userid:String,timeStamp:String,sign:String) {
+        fun removeInstallAppWhite(context: Context,packageName: String,channel:String,userid:String,timeStamp:Long,sign:String) {
             try{
                 val intent = Intent("com.fundot.launcher.install_whitelist")
                 intent.putExtra("removePackageName",packageName)
@@ -225,7 +225,7 @@ class FundotLauncherHelper {
         }
         //设置安装白名单应用 重置列表为传入数据
         @JvmStatic
-        fun setInstallAppWhiteList(context: Context,packageNames: ArrayList<String>,channel:String,userid:String,timeStamp:String,sign:String) {
+        fun setInstallAppWhiteList(context: Context,packageNames: ArrayList<String>,channel:String,userid:String,timeStamp:Long,sign:String) {
             try{
                 val intent = Intent("com.fundot.launcher.install_whitelist")
                 intent.putStringArrayListExtra("packageNames",packageNames)
@@ -240,7 +240,7 @@ class FundotLauncherHelper {
         }
         //恢复出厂
         @JvmStatic
-        fun factoryReset(context: Context,channel:String,userid:String,timeStamp:String,sign:String) {
+        fun factoryReset(context: Context,channel:String,userid:String,timeStamp:Long,sign:String) {
             try{
                 val intent = Intent("com.fundot.launcher.factoryReset")
                 intent.putExtra("channel",channel)
