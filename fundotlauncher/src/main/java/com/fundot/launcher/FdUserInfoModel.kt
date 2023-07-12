@@ -14,6 +14,7 @@ class FdUserInfoModel {
     var realname = ""
     var mobile = ""
     var email = ""
+    var sex = 0
     var headphoto = ""
     var classid = ""
     var classname = ""
