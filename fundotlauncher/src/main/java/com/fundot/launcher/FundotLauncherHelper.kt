@@ -279,10 +279,11 @@ class FundotLauncherHelper {
                 if ("com.fundot.p4bu.login-result" == action) {
                     val result = intent.getBooleanExtra("result", false)
                     val message = intent.getStringExtra("message")
+                    val code = intent.getIntExtra("code",-1)
                     if (result){
                         loginCallback?.loginSuccess(message ?: "")
                     }else{
-                        loginCallback?.loginFail(-1,message ?: "登录失败，请重试。")
+                        loginCallback?.loginFail(code,message ?: "登录失败，请重试。")
                     }
                     loginCallback = null
                 }else if ("com.fundot.p4bu.logout" == action) {
@@ -295,10 +296,11 @@ class FundotLauncherHelper {
                 }else if ("com.fundot.p4bu.logout-result"==action){
                     val result = intent.getBooleanExtra("result", false)
                     val message = intent.getStringExtra("message")
+                    val code = intent.getIntExtra("code",-1)
                     if (result){
                         logoutCallback?.logoutSuccess(message ?: "")
                     }else{
-                        logoutCallback?.logoutFail(-1,message ?: "退出登录失败。")
+                        logoutCallback?.logoutFail(code,message ?: "退出登录失败。")
                     }
                     logoutCallback = null
                 }else if ("com.fundot.p4bu.packagename_change"==action){
