@@ -2,7 +2,7 @@
 
 # 引入
 ```
-implementation 'com.github.hjqiaho:fdlauncher:2.8'
+implementation 'com.github.hjqiaho:fdlauncher:2.11'
 ```
 
 
@@ -58,6 +58,24 @@ private var topAppChangeCallback: FundotLauncherHelper.FundotTopAppChangeCallbac
         }
 FundotLauncherHelper.addFundotTopAppChangeCallback(topAppChangeCallback)
 ```
+***监听和获取管控信息***
+```
+  //注册监听管控用户数据变化
+        FundotOpenInfoHelper.register(this,object : FundotOpenInfoHelper.FunDotInfoCallback{
+            override fun fundotInfoChange() {
+                //获取用户信息
+                var fundotOpenModel =  FundotOpenInfoHelper.getData(this@DemoApplication)
+            }
+        })
+        //解除注册监听管控用户数据变化
+        FundotOpenInfoHelper.unregister(this)
+
+        //获取用户信息
+        var fundotOpenModel =  FundotOpenInfoHelper.getData(this@DemoApplication)
+
+
+```
+
 ***一些操作***
 ```
 //获取需要显示的应用列表
@@ -110,6 +128,8 @@ FundotLauncherHelper.setInstallAppWhiteList(this,packageNames,channel,userid,tim
 //恢复出厂
 FundotLauncherHelper.factoryReset(this,channel,userid,timeStamp,sign)
 
+//桌面发送数据到管控
+FundotLauncherHelper.sendUpdateLauncherBoardCast(this,data,timeStamp,sign)
       
 
 /**
