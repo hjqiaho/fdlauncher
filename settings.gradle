@@ -1,8 +1,8 @@
 rootProject.name = "fdlauncher"
 include ':app'
 include ':fundotlauncher'
+include 'FundotOpenInfo'
 //include 'mkcommon'
 //project(':mkcommon').projectDir = new File('../../android/mkcommon/mkcommon')
 //include 'mkbase'
 //project(':mkbase').projectDir = new File('../../android/mkbase/mkbase')
-include 'FundotOpenInfo'

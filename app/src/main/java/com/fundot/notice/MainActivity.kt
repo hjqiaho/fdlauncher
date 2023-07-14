@@ -45,11 +45,9 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
         }
         findViewById<Button>(R.id.btn_hidden_nav)?.setOnClickListener {
-            window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
           FundotLauncherHelper.sendKeepAppBoardCast(this,"")
         }
         findViewById<Button>(R.id.btn_show_nav)?.setOnClickListener {
-            window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
             FundotLauncherHelper.sendRemoveKeepAppBoardCast(this)
         }
     }

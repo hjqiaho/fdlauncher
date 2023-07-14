@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import com.fundot.launcher.FundotLauncherHelper
 import com.fundot.launcher.utils.FdAppInfo
+import com.fundot.openinfo.FundotOpenInfoHelper
 
 
 class DemoApplication : Application() {
@@ -35,6 +36,20 @@ class DemoApplication : Application() {
             override fun needShowApp(allowApps: List<String>, allowFdApps: List<FdAppInfo>) {
             }
         })
+
+        //注册监听管控用户数据变化
+        FundotOpenInfoHelper.register(this,object : FundotOpenInfoHelper.FunDotInfoCallback{
+            override fun fundotInfoChange() {
+                //获取用户信息
+                var fundotOpenModel =  FundotOpenInfoHelper.getData(this@DemoApplication)
+            }
+        })
+        //解除注册监听管控用户数据变化
+        FundotOpenInfoHelper.unregister(this)
+
+        //获取用户信息
+        var fundotOpenModel =  FundotOpenInfoHelper.getData(this@DemoApplication)
+
 
         /*
                 //获取管控禁用应用列表

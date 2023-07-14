@@ -172,7 +172,26 @@ class FundotLauncherHelper {
                 e.printStackTrace()
             }
         }
-        //保持应用在前台
+        /**
+         * 向管控发送桌面数据缓存
+         * */
+        @JvmStatic
+        fun sendUpdateLauncherBoardCast(context: Context,data:String ,timeStamp:Long,sign:String) {
+            try{
+                val intent = Intent("com.fundot.p4bu.launcherdate")
+                intent.putExtra("data",data)
+                intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("sign",sign)
+                intent.putExtra("caller", caller)
+                context.sendBroadcast(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        /**
+         * 隐藏导航栏
+         * 传入包名packagename 则为隐藏导航栏的同时保持前台应用
+         * */
         @JvmStatic
         fun sendKeepAppBoardCast(context: Context,packagename: String) {
             try{
@@ -183,11 +202,33 @@ class FundotLauncherHelper {
                 e.printStackTrace()
             }
         }
-        //取消保持应用在前台
+        //显示导航栏
         @JvmStatic
         fun sendRemoveKeepAppBoardCast(context: Context) {
             try{
                 val intent = Intent("com.fundot.p4bu.nav-show")
+                context.sendBroadcast(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        //显示导航键home
+        @JvmStatic
+        fun sendShowNavBarHomeBoardCast(context: Context) {
+            try{
+                val intent = Intent("com.fundot.p4bu.home-show")
+                context.sendBroadcast(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        /**
+         * 隐藏导航键home
+         * */
+        @JvmStatic
+        fun sendHiddenNavBarHomeBoardCast(context: Context) {
+            try{
+                val intent = Intent("com.fundot.p4bu.home-hide")
                 context.sendBroadcast(intent)
             }catch (e:Exception){
                 e.printStackTrace()
@@ -202,6 +243,7 @@ class FundotLauncherHelper {
                 intent.putExtra("channel",channel)
                 intent.putExtra("userid",userid)
                 intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("caller", caller)
                 intent.putExtra("sign",sign)
                 context.sendBroadcast(intent)
             }catch (e:Exception){
@@ -217,6 +259,7 @@ class FundotLauncherHelper {
                 intent.putExtra("channel",channel)
                 intent.putExtra("userid",userid)
                 intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("caller", caller)
                 intent.putExtra("sign",sign)
                 context.sendBroadcast(intent)
             }catch (e:Exception){
@@ -232,6 +275,7 @@ class FundotLauncherHelper {
                 intent.putExtra("channel",channel)
                 intent.putExtra("userid",userid)
                 intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("caller", caller)
                 intent.putExtra("sign",sign)
                 context.sendBroadcast(intent)
             }catch (e:Exception){
@@ -246,6 +290,7 @@ class FundotLauncherHelper {
                 intent.putExtra("channel",channel)
                 intent.putExtra("userid",userid)
                 intent.putExtra("timeStamp",timeStamp)
+                intent.putExtra("caller", caller)
                 intent.putExtra("sign",sign)
                 context.sendBroadcast(intent)
             }catch (e:Exception){

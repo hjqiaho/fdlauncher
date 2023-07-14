@@ -26,4 +26,6 @@ class FundotOpenModel {
     @JvmField
     var CardNo: String = ""
 
+    @JvmField
+    var LauncherDate: String = ""
 }
