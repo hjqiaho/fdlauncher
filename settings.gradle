@@ -5,3 +5,4 @@ include ':fundotlauncher'
 //project(':mkcommon').projectDir = new File('../../android/mkcommon/mkcommon')
 //include 'mkbase'
 //project(':mkbase').projectDir = new File('../../android/mkbase/mkbase')
+include 'FundotOpenInfo'
