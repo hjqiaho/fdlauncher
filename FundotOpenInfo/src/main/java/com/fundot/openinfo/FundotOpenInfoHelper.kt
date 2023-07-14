@@ -36,7 +36,7 @@ class FundotOpenInfoHelper {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            return dataModel!!
+            return dataModel ?: FundotOpenModel()
         }
 
         //注册并监听数据变化
