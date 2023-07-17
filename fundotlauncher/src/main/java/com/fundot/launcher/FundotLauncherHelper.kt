@@ -325,6 +325,7 @@ class FundotLauncherHelper {
                     val result = intent.getBooleanExtra("result", false)
                     val message = intent.getStringExtra("message")
                     val code = intent.getIntExtra("code",-1)
+                    Log.i(TAG,"action = $action, result = $result , message = $message ,code = $code")
                     if (result){
                         loginCallback?.loginSuccess(message ?: "")
                     }else{
@@ -333,6 +334,8 @@ class FundotLauncherHelper {
                     loginCallback = null
                 }else if ("com.fundot.p4bu.logout" == action) {
                     val message = intent.getStringExtra("message")
+                    Log.i(TAG,"action = $action,  message = $message")
+
                     fundotLoginStateCallbacks.forEach {
                         it.logout(-1,message ?: "你已退出登录。")
                     }
@@ -342,6 +345,7 @@ class FundotLauncherHelper {
                     val result = intent.getBooleanExtra("result", false)
                     val message = intent.getStringExtra("message")
                     val code = intent.getIntExtra("code",-1)
+                    Log.i(TAG,"action = $action, result = $result , message = $message ")
                     if (result){
                         logoutCallback?.logoutSuccess(message ?: "")
                     }else{
