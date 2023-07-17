@@ -50,6 +50,7 @@ class FundotLauncherHelper {
         fun setAppReloadListener(context: Context, callback: FundotAppReloadCallback){
             mControlHideAppUtil.appReloadCallback = callback
             mControlHideAppUtil.loadData(context)
+            Log.i(TAG, "setAppReloadListener")
         }
 
         private var loginCallback: FundotLoginCallback? = null
@@ -187,6 +188,7 @@ class FundotLauncherHelper {
                 intent.putExtra("sign",sign)
                 intent.putExtra("caller", caller)
                 context.sendBroadcast(intent)
+                Log.i(TAG, "sendLauncherDataBoardCast")
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -201,6 +203,7 @@ class FundotLauncherHelper {
                 val intent = Intent("com.fundot.p4bu.nav-hide")
                 intent.putExtra("packagename",packagename)
                 context.sendBroadcast(intent)
+                Log.i(TAG, "sendKeepAppBoardCast")
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -211,6 +214,7 @@ class FundotLauncherHelper {
             try{
                 val intent = Intent("com.fundot.p4bu.nav-show")
                 context.sendBroadcast(intent)
+                Log.i(TAG, "sendRemoveKeepAppBoardCast")
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -221,6 +225,7 @@ class FundotLauncherHelper {
             try{
                 val intent = Intent("com.fundot.p4bu.home-show")
                 context.sendBroadcast(intent)
+                Log.i(TAG, "sendShowNavBarHomeBoardCast")
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -233,6 +238,7 @@ class FundotLauncherHelper {
             try{
                 val intent = Intent("com.fundot.p4bu.home-hide")
                 context.sendBroadcast(intent)
+                Log.i(TAG, "sendHiddenNavBarHomeBoardCast")
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -249,6 +255,7 @@ class FundotLauncherHelper {
                 intent.putExtra("caller", caller)
                 intent.putExtra("sign",sign)
                 context.sendBroadcast(intent)
+                Log.i(TAG, "addInstallAppWhite")
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -265,6 +272,7 @@ class FundotLauncherHelper {
                 intent.putExtra("caller", caller)
                 intent.putExtra("sign",sign)
                 context.sendBroadcast(intent)
+                Log.i(TAG, "removeInstallAppWhite")
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -281,6 +289,7 @@ class FundotLauncherHelper {
                 intent.putExtra("caller", caller)
                 intent.putExtra("sign",sign)
                 context.sendBroadcast(intent)
+                Log.i(TAG, "setInstallAppWhiteList")
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -296,6 +305,7 @@ class FundotLauncherHelper {
                 intent.putExtra("caller", caller)
                 intent.putExtra("sign",sign)
                 context.sendBroadcast(intent)
+                Log.i(TAG, "factoryReset")
             }catch (e:Exception){
                 e.printStackTrace()
             }
