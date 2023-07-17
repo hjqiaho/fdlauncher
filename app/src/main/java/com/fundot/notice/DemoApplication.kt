@@ -49,7 +49,8 @@ class DemoApplication : Application() {
 
         //获取用户信息
         var fundotOpenModel =  FundotOpenInfoHelper.getData(this@DemoApplication)
-
+        //获取登录保存的用户信息
+        var loginUserInfoModel = FundotOpenInfoHelper.getData(this@DemoApplication).loginUserInfoModel
 
         /*
                 //获取管控禁用应用列表
