@@ -2,7 +2,7 @@
 
 # 引入
 ```
-implementation 'com.github.hjqiaho:fdlauncher:2.11'
+implementation 'com.github.hjqiaho:fdlauncher:2.12'
 ```
 
 
@@ -20,18 +20,20 @@ FundotLauncherHelper.register(this,"com.cunw")
 
 
 ```
+
 ***监听隐藏应用事件***
 ```
-     //监听应用禁用启用应用后刷新桌面图标
-        FundotLauncherHelper.setAppReloadListener(this,object:FundotLauncherHelper.FundotAppReloadCallback{
-            //这里需要显示或者隐藏图标
-            override fun needHidenApp(hidenApps: List<String>) {
-            }
+//监听应用禁用启用应用后刷新桌面图标
+FundotLauncherHelper.setAppReloadListener(this,object:FundotLauncherHelper.FundotAppReloadCallback{
+    //这里需要显示或者隐藏图标
+    override fun needHidenApp(hidenApps: List<String>) {
+    }
 
-            override fun needShowApp(allowApps: List<String>, allowFdApps: List<FdAppInfo>) {
-            }
-        })
+    override fun needShowApp(allowApps: List<String>, allowFdApps: List<FdAppInfo>) {
+    }
+})
 ```
+
 ***监听 管控退出登录事件***
 ```
 //监听 管控退出登录广播
@@ -43,10 +45,9 @@ FundotLauncherHelper.register(this,"com.cunw")
         }
     }
 FundotLauncherHelper.addFundotLoginStateCallback(loginCallback)
-
 ```
-***监听 前台应用切换事件***
 
+***监听 前台应用切换事件***
 ```
 //监听前台应用切换
 private var topAppChangeCallback: FundotLauncherHelper.FundotTopAppChangeCallback =
@@ -58,21 +59,24 @@ private var topAppChangeCallback: FundotLauncherHelper.FundotTopAppChangeCallbac
         }
 FundotLauncherHelper.addFundotTopAppChangeCallback(topAppChangeCallback)
 ```
+
 ***监听和获取管控信息***
 ```
-  //注册监听管控用户数据变化
-        FundotOpenInfoHelper.register(this,object : FundotOpenInfoHelper.FunDotInfoCallback{
-            override fun fundotInfoChange() {
-                //获取用户信息
-                var fundotOpenModel =  FundotOpenInfoHelper.getData(this@DemoApplication)
-            }
-        })
-        //解除注册监听管控用户数据变化
-        FundotOpenInfoHelper.unregister(this)
-
+//注册监听管控用户数据变化
+FundotOpenInfoHelper.register(this,object : FundotOpenInfoHelper.FunDotInfoCallback{
+    override fun fundotInfoChange() {
         //获取用户信息
         var fundotOpenModel =  FundotOpenInfoHelper.getData(this@DemoApplication)
+    }
+})
+//解除注册监听管控用户数据变化
+FundotOpenInfoHelper.unregister(this)
 
+//获取用户信息
+var fundotOpenModel =  FundotOpenInfoHelper.getData(this@DemoApplication)
+
+//获取登录保存的用户信息
+var loginUserInfoModel = FundotOpenInfoHelper.getData(this@DemoApplication).loginUserInfoModel
 
 ```
 
