@@ -89,10 +89,10 @@ loginInfo.username = "li"
 loginInfo.realname = "李"
 loginInfo.channel = ""
 loginInfo.timeStamp = System.currentTimeMillis()
-loginInfo.sign = getCunwSign(loginInfo.userid,loginInfo.channel,loginInfo.timeStamp)
+loginInfo.sign = SignCheckHelper.getLoginSign("xyw_fbf28fa",loginInfo.channel,loginInfo.userid,loginInfo.timeStamp)
 FundotLauncherHelper.login(this,GsonUtils.jsonCreate(loginInfo),object : FundotLauncherHelper.FundotLoginCallback{
     override fun loginSuccess(message: String) {
-        Toast.makeText(this@LoginActivity,"登录成功",Toast.LENGTH_LONG).show()
+        Toast.makeText(this@LoginActivity,"登录成功！",Toast.LENGTH_LONG).show()
         finish()
     }
 
