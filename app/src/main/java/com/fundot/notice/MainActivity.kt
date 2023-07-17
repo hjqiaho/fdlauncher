@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.fundot.launcher.FundotLauncherHelper
+import com.fundot.launcher.utils.SignCheckHelper
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 
@@ -49,6 +50,11 @@ class MainActivity : AppCompatActivity(){
         }
         findViewById<Button>(R.id.btn_show_nav)?.setOnClickListener {
             FundotLauncherHelper.sendRemoveKeepAppBoardCast(this)
+        }
+        findViewById<Button>(R.id.btn_send_launcher_data)?.setOnClickListener {
+            val data = "abc123"
+            val timeStamp = System.currentTimeMillis();
+            FundotLauncherHelper.sendLauncherDataBoardCast(this,data,timeStamp, SignCheckHelper.getDataSign("xyw_fbf28fa",data,timeStamp))
         }
     }
 

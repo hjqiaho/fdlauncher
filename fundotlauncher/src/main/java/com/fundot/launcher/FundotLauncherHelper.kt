@@ -17,6 +17,9 @@ class FundotLauncherHelper {
         private const val TAG = "FundotLauncherHelper"
         private val mControlHideAppUtil = ControlHideAppUtil()
         private var caller = ""
+        fun getCaller():String{
+            return caller;
+        }
 
         //注册并监听数据变化
         @JvmStatic
@@ -176,7 +179,7 @@ class FundotLauncherHelper {
          * 向管控发送桌面数据缓存
          * */
         @JvmStatic
-        fun sendUpdateLauncherBoardCast(context: Context,data:String ,timeStamp:Long,sign:String) {
+        fun sendLauncherDataBoardCast(context: Context,data:String ,timeStamp:Long,sign:String) {
             try{
                 val intent = Intent("com.fundot.p4bu.launcherdate")
                 intent.putExtra("data",data)

@@ -20,13 +20,6 @@
         android:layout_marginTop="120dp"
         android:text="隐藏导航"/>
 
-    <Button
-        android:id="@+id/btn_send_launcher_data"
-        android:layout_height="100dp"
-        android:layout_width="100dp"
-        android:layout_marginTop="240dp"
-        android:text="保存桌面数据"/>
-
 
     <Button
         android:id="@+id/btn_show_nav"
