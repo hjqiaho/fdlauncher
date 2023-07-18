@@ -352,8 +352,10 @@ class FundotLauncherHelper {
                     fundotLoginStateCallbacks.forEach {
                         it.logout(-1,message ?: "你已退出登录。")
                     }
-                    logoutCallback?.logoutSuccess(message ?: "")
-                    logoutCallback = null
+                    val iterator: MutableIterator<FundotLoginStateCallback> = fundotLoginStateCallbacks.iterator()
+                    while (iterator.hasNext()) {
+                        iterator.next().logout(-1,message ?: "你已退出登录。")
+                    }
                 }else if ("com.fundot.p4bu.logout-result"==action){
                     val result = intent.getBooleanExtra("result", false)
                     val message = intent.getStringExtra("message")
