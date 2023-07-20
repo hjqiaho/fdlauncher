@@ -197,7 +197,7 @@ class FundotLauncherHelper {
          * 调用管控接口卸载应用
          * */
         @JvmStatic
-        fun senUninstallBoardCast(context: Context,packageName:String ,timeStamp:Long,sign:String) {
+        fun sendUninstallBoardCast(context: Context,packageName:String ,timeStamp:Long,sign:String) {
             try{
                 val intent = Intent("com.fundot.p4bu.uninstall")
                 intent.putExtra("packageName",packageName)
