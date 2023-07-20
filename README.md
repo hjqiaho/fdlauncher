@@ -137,7 +137,7 @@ FundotLauncherHelper.sendUpdateLauncherBoardCast(this,data,timeStamp,sign)
 
 //卸载应用接口
 sign = SignCheckHelper.getDataSign(key,packageName,timeStamp)
-FundotLauncherHelper.senUninstallBoardCast(this,packageName,timeStamp,sign)      
+FundotLauncherHelper.sendUninstallBoardCast(this,packageName,timeStamp,sign)      
 
 /**
  * TODO
