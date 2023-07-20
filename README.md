@@ -2,7 +2,7 @@
 
 # 引入
 ```
-implementation 'com.github.hjqiaho:fdlauncher:2.14'
+implementation 'com.github.hjqiaho:fdlauncher:2.15'
 ```
 
 
