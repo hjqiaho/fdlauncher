@@ -365,9 +365,15 @@ class FundotLauncherHelper {
                 }else if ("com.fundot.p4bu.logout" == action) {
                     val message = intent.getStringExtra("message")
                     Log.i(TAG,"action = $action,  message = $message")
-                    val iterator: MutableIterator<FundotLoginStateCallback> = fundotLoginStateCallbacks.iterator()
-                    while (iterator.hasNext()) {
-                        iterator.next().logout(-1,message ?: "你已退出登录。")
+                    try {
+                        synchronized(FundotLauncherHelper::class.java){
+                            val iterator: MutableIterator<FundotLoginStateCallback> = fundotLoginStateCallbacks.iterator()
+                            while (iterator.hasNext()) {
+                                iterator.next().logout(-1,message ?: "你已退出登录。")
+                            }
+                        }
+                    }catch (throwable:Throwable){
+                        throwable.printStackTrace()
                     }
                 }else if ("com.fundot.p4bu.logout-result"==action){
                     val result = intent.getBooleanExtra("result", false)
