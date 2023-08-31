@@ -31,6 +31,9 @@ class FundotOpenModel {
     var LauncherDate: String = ""
 
     @JvmField
+    var isLogin: Boolean = false
+
+    @JvmField
     var LoginUserInfo:String = ""
     val loginUserInfoModel:LoginUserInfoModel
         get() {
