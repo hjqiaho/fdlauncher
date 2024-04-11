@@ -57,6 +57,7 @@ class FundotLauncherHelper {
         private var logoutCallback: FundotLogoutCallback? = null
         private var fundotLoginStateCallbacks: MutableList<FundotLoginStateCallback> = arrayListOf()
         private var fundotTopAppChangeCallbacks: MutableList<FundotTopAppChangeCallback> = arrayListOf()
+        private var fundotOpenAppChangeCallbacks: MutableList<FundotOpenAppChangeCallback> = arrayListOf()
 
         /**
          *  登录
@@ -120,6 +121,14 @@ class FundotLauncherHelper {
         @JvmStatic
         fun removeFundotTopAppChangeCallback(callback: FundotTopAppChangeCallback?){
             callback?.let { this.fundotTopAppChangeCallbacks.remove(it) }
+        }
+        @JvmStatic
+        fun addFundotOpenAppChangeCallback(callback: FundotOpenAppChangeCallback?){
+            callback?.let { this.fundotOpenAppChangeCallbacks.add(it) }
+        }
+        @JvmStatic
+        fun removeFundotOpenAppChangeCallback(callback: FundotOpenAppChangeCallback?){
+            callback?.let { this.fundotOpenAppChangeCallbacks.remove(it) }
         }
         /**
          *  获取 需要显示的应用列表
@@ -335,6 +344,7 @@ class FundotLauncherHelper {
                 filter.addAction("com.fundot.p4bu.logout")
                 filter.addAction("com.fundot.p4bu.logout-result")
                 filter.addAction("com.fundot.p4bu.packagename_change")
+                filter.addAction("com.fundot.p4bu.openapp")
                 context.registerReceiver(receiver, filter)
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
@@ -392,6 +402,12 @@ class FundotLauncherHelper {
                     val StartTime = intent.getLongExtra("StartTime",0L)
                     fundotTopAppChangeCallbacks.forEach {
                         it.topApp(PackageName,ActivityName,StartTime)
+                    }
+                }else if ("com.fundot.p4bu.openapp"==action){
+                    val PackageName = intent.getStringExtra("PackageName") ?: ""
+                    val From = intent.getStringExtra("From") ?: ""
+                    fundotOpenAppChangeCallbacks.forEach {
+                        it.openApp(PackageName,From)
                     }
                 }
             }
@@ -478,6 +494,20 @@ class FundotLauncherHelper {
          *
          */
         fun topApp(packageName:String,activityName:String,startTime:Long)
+
+    }
+    interface FundotOpenAppChangeCallback {
+        /**
+         * 管控打开应用失败 需要桌面打开
+         *
+         * 在桌面任何时刻可能会收到
+         *
+         *
+         *  管控打开应用失败 需要桌面打开
+         * @param from:打开来源 FdAppStore:应用商店点击打开失败  FdAppKeep:应用保持打开失败
+         *
+         */
+        fun openApp(packageName:String,from:String)
 
     }
     interface FundotAppReloadCallback {
