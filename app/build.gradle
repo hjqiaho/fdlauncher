@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 
 android {
-    compileSdk 30
+    compileSdk 34
     signingConfigs {//签名配置
         release {//发布版签名配置
             storeFile file('../fdnotice.jks')//密钥文件路径
@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.fundot.launcher"
         minSdk 21
-        targetSdk 30
+        targetSdk 34
         versionCode Integer.parseInt(appVersionCode)
         versionName "FDLauncher_${versionCode}"
 

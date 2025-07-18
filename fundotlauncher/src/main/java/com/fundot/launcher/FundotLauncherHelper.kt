@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.util.Base64
 import android.util.Log
 import com.fundot.launcher.utils.ControlHideAppUtil
@@ -345,7 +346,11 @@ class FundotLauncherHelper {
                 filter.addAction("com.fundot.p4bu.logout-result")
                 filter.addAction("com.fundot.p4bu.packagename_change")
                 filter.addAction("com.fundot.p4bu.openapp")
-                context.registerReceiver(receiver, filter)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    context.registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED)
+                }else{
+                    context.registerReceiver(receiver, filter)
+                }
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
